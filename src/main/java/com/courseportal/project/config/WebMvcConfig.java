@@ -29,8 +29,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.courseportal.project.account.CurrentAccountArgumentResolver;
-
 /**
  * Spring MVC Configuration.
  * @author Craig Walls
@@ -38,13 +36,6 @@ import com.courseportal.project.account.CurrentAccountArgumentResolver;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        CurrentAccountArgumentResolver resolver = new CurrentAccountArgumentResolver();
-        argumentResolvers.add(resolver);    
-    }
-
     
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/signin");
