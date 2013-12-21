@@ -1,2 +1,1 @@
-IGotFooled
-==========
+# This is the initial readme

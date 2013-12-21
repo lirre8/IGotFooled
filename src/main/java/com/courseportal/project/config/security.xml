@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<http pattern="/resources/**" security="none" />
+
+
+    <http use-expressions="true">
+        <!-- Authentication policy -->
+        <form-login login-page="/signin" login-processing-url="/signin/authenticate" authentication-failure-url="/signin?error=bad_credentials" />
+        <logout logout-url="/signout" delete-cookies="JSESSIONID" />
+        <intercept-url pattern="/addcourse" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/courses/**/**/edit" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/courses/**/comment" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/courses/**/adduserbook" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/users/**/edit" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/users/**/edit" access="hasRole('ROLE_USER')" />
+    </http>
+
+	<authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="myUserDetailsServiceImpl">
+            <password-encoder ref="passwordEncoder" />
+        </authentication-provider>
+	</authentication-manager>
+    
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+</beans:beans>
