@@ -83,7 +83,7 @@ public class MainConfig {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@192.168.100.9:1521:XE");
+        dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
         dataSource.setUsername("MATTE");
         dataSource.setPassword("tongji");
         return dataSource; 

@@ -11,51 +11,49 @@ import javax.persistence.Table;
 @Entity
 @Table(name="reports")
 public class Report {
-            
-            @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
-            private long id;
-            
-            @ManyToOne
-            private Scam scam;
-            
-            @ManyToOne
-            private PoliceStation policeStation;
-            
-            private String outcome;
 
-            public long getId() {
-                return id;
-            }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-            public void setId(long id) {
-                this.id = id;
-            }
+    @ManyToOne
+    private Scam scam;
 
-            public Scam getScam() {
-                return scam;
-            }
+    @ManyToOne
+    private PoliceStation policeStation;
 
-            public void setScam(Scam scam) {
-                this.scam = scam;
-            }
+    private String outcome;
 
-            public PoliceStation getPoliceStation() {
-                return policeStation;
-            }
+    public long getId() {
+        return id;
+    }
 
-            public void setPoliceStation(PoliceStation policeStation) {
-                this.policeStation = policeStation;
-            }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-            public String getOutcome() {
-                return outcome;
-            }
+    public Scam getScam() {
+        return scam;
+    }
 
-            public void setOutcome(String outcome) {
-                this.outcome = outcome;
-            }
-            
-            
+    public void setScam(Scam scam) {
+        this.scam = scam;
+    }
+
+    public PoliceStation getPoliceStation() {
+        return policeStation;
+    }
+
+    public void setPoliceStation(PoliceStation policeStation) {
+        this.policeStation = policeStation;
+    }
+
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
 
 }

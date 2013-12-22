@@ -1,87 +1,159 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Course Portal</title>
-    <meta name="google-site-verification" content="RcIg0lj1O-SzAsp2WaoI71z9R4308S5woMHeyxyPlEQ" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="<c:url value="/resources/favicon.ico?v=4" />">
-    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-responsive.css" />"></link>
-    <link rel="stylesheet" href="<c:url value="/resources/font-awesome-4.0.3/css/font-awesome.css" />"></link>
-    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />"></link>
-    <link rel="stylesheet" href="<c:url value="/resources/css/slider.css" />"></link>
-    <link rel="stylesheet" href="<c:url value="/resources/css/zocial.css" />"></link>
-    <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />"></link>
-    <script src="<c:url value="/resources/js/jquery-2.0.3.min.js" />"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    <script src="<c:url value="/resources/js/hogan-2.0.0.js" />"></script>
-    <script src="<c:url value="/resources/js/typeahead.min.js" />"></script>
-    <script src="<c:url value="/resources/js/scripts.js" />"></script>
-    <script src="<c:url value="/resources/js/Chart.min.js" />"></script>
-    <script src="<c:url value="/resources/js/bootstrap-slider.js" />"></script>
-    <style>
-        body  {
-            background: url(resources/image/background.jpg) no-repeat center center fixed;
-            box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.2);
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-    </style>
-    <script>
-        function focusRemoveSearch() {
-            $(".search-course").focus();
-            $('#header-search-div').remove();
-        }
-    </script>
+<script src="<c:url value="/resources/js/jquery-2.0.3.min.js" />"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />"></link>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+<script src="<c:url value="/resources/js/scripts.js" />"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />"></link>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-responsive.css" />"></link>
+<meta charset=utf-8 />
+<title>IGotFooled</title>
 </head>
-<body onload="focusRemoveSearch()">
-    <c:import url="header.jsp" />
+<body>
+    <nav id="header" class="col-md-12 navbar navbar-default navbar-fixed-top" role="navigation">
+        <a class="navbar-brand" href="/">
+            <strong>IGotFooled</strong><small> Scam registration service</small>
+        </a>
+    </nav>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="row">
-            <div class="well" id="search-well">
-                <p class="lead">Enter what course you want to search for!</p>
-                <div class="input-group">
-                    <input type="text" placeholder="Search..." autocomplete="off" class="search-course form-control search-query">
-                    <span class="input-group-btn">
-                        <button type="button" class="search-course-button btn btn-default">Search</button>
-                    </span> 
-                    <input type="hidden" id="hiddenCourseId" name="hiddenCourseId">
-                </div>
-                <strong><em style="padding: 3px 0 0 10px">Add new course <a href="/addcourse">here</a></em></strong>
-                </div>
+        <div class="col-md-12" id="map-form-div">
+            <div class="col-md-9">
+                <div id="map"></div>
+            </div>
+            <div class="col-md-3">
+                <h4>Did something happened to you or your freinds? Report it here.</h4>
+                <form:form role="form" modelAttribute="addScamForm" method="POST" action="addscam">
+    
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <form:errors path="title" cssClass="text-danger" /> 
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="heigh">Description</label>
+                        <textarea type="text" class="form-control" name="description" id="description" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label> <select type="text" class="form-control" name="category" id="category" placeholder="category">
+                            <option>Tourist attraction</option>
+                            <option>Auctions and online selling</option>
+                            <option>Rental scams</option>
+                            <option>Lottery scams</option>
+                            <option>Romance scams</option>
+                            <option>Loan scams</option>
+                            <option>Employment scams</option>
+                            <option>Recovery scams</option>
+                            <option>Charity scams</option>
+                            <option>Fake sites used for fraud</option>
+                            <option>Email scams</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Address</label> 
+                        <input type="text" class="form-control" name="country" id="country" placeholder="Country"> 
+                        <input type="text" class="form-control" name="city" id="city" placeholder="City">
+                        <input type="text" class="form-control" name="lat" id="latitude" placeholder="Latitude">
+                        <input type="text" class="form-control" name="lng" id="longitude" placeholder="Longitude">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="money">Impact</label><br /> 
+                        <label class="checkbox-inline"> 
+                            <form:errors path="trustcb" cssClass="text-danger" /> 
+                            <form:checkbox path="trustcb" id="trust-checkbox" value="trust"/>
+                            Trust
+                        </label> 
+                            <label class="checkbox-inline"> 
+                            <form:errors path="moneycb" cssClass="text-danger" /> 
+                            <form:checkbox path="moneycb" id="money-checkbox" value="money"/> 
+                            Money
+                        </label> 
+                        <label class="checkbox-inline"> 
+                            <form:errors path="violencecb" cssClass="text-danger" /> 
+                            <form:checkbox path="violencecb" id="violence-checkbox" value="violence"/> 
+                            Violence
+                        </label> 
+                        <label class="checkbox-inline"> 
+                            <form:errors path="propertycb" cssClass="text-danger" /> 
+                            <form:checkbox path="propertycb" id="property-checkbox" value="property"/> 
+                            Property
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div id="money-div">
+                            <label for="money">Money lost</label> <input type="number" class="form-control" name="money" id="money" placeholder="Money lost" hidden=>
+                        </div>
+                        <div id="violence-div">
+                            <label for="violence">Violence</label> <input type="text" class="form-control" name="violence" id="violence" placeholder="Violence">
+                        </div>
+                        <div id="property-div">
+                            <label for="property">Property</label> <input type="text" class="form-control" name="property" id="property" placeholder="Property">
+                        </div>
+                    </div>
+                    <button class="btn btn-default">Add</button>
+                </form:form>
             </div>
         </div>
     </div>
-    <div class="row well" id="info-well">
-        <div class="col-md-2 col-md-offset-1">
-            <h3>Book market</h3>
-            <p>It's <strong>easy to sell and buy books</strong>. Just find the course it's used in and add your book.</p>
-        </div>
-        <div class="col-md-2">
-            <h3>Discussions</h3>
-            <p>Have you ever wanted to speak with someone that took the course you planning to take? You can easily go in and read other student's experiences and ask
-                questions.</p>
-        </div>
-        <div class="col-md-2">
-            <h3>Hesitating over a course?</h3>
-            <p>Are you hesitating over a course you planning to take? You can easily see what other students though, if they spend much time on it, if the teachers
-                are good and if the exercises are good.</p>
-        </div>
-        <div class="col-md-2">
-            <h3>Comparison</h3>
-            <p>Where are the <strong>best educations</strong> in the world? Where does students <strong>work hardest?</strong> Where are the best teachers? Read about all this on Course Portal</p>
-        </div>
-        <div class="col-md-2">
-            <h3>Growing community</h3>
-            <p>As Course Portal growing we are implementing more features. Some of them are the ability to upload and discuss exams, see lecture notes, see how your
-                favorite course is ranked globally in the world and so on. Keep on using Course Portal and we keep on developing Course Portal.</p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Title</td>
+                        <td>Description</td>
+                        <td>Category</td>
+                        <td>Date</td>
+                        <td>Country</td>
+                        <td>City</td>
+                        <td>Reported</td>
+                        <td>Impact</td>
+                    </tr>
+                    <script> var cordinateArray =[],longAndLat;</script>
+                    
+                    <c:forEach items="${scams}" var="scam">
+                        <tr>
+                            <td><c:out value="${scam.title}" /></td>
+                            <td><c:out value="${scam.description}" /></td>
+                            <td><c:out value="${scam.category}" /></td>
+                            <td><c:out value="${scam.dateString}" /></td>
+                            <td><c:out value="${scam.city.country}" /></td>
+                            <td><c:out value="${scam.city.name}" /></td>
+                            <td><c:out value="${scam.reported}" /></td>
+                            <td><c:out value="${scam.damage}"  /></td>
+                             
+                            <script>
+                                longAndLat = {
+                                        longitude: "${scam.adress.lng}",
+                                        latitude: "${scam.adress.lat}",
+                                        title: "${scam.title}",
+                                };
+                                cordinateArray.push(longAndLat);
+                            </script>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
         </div>
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

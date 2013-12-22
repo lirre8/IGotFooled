@@ -17,6 +17,10 @@ public class Adress {
         private String streetname;
         
         private int streetNumber;
+        
+        private String lat;
+        
+        private String lng;
 
         
         public long getId() {
@@ -41,5 +45,21 @@ public class Adress {
 
         public void setStreetNumber(int streetNumber) {
             this.streetNumber = streetNumber;
+        }
+
+        public String getLng() {
+            return lng;
+        }
+
+        public void setLng(String lng) {
+            this.lng = lng;
+        }
+
+        public String getLat() {
+            return lat;
+        }
+
+        public void setLat(String lat) {
+            this.lat = lat;
         }
 }

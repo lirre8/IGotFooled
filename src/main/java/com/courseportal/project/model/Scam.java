@@ -1,9 +1,5 @@
 package com.courseportal.project.model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="scames")
+@Table(name="scams")
 public class Scam {
 
     @Id
@@ -26,7 +22,7 @@ public class Scam {
     @ManyToOne
     private Adress adress;
     
-    private String date;
+    private String dateString;
     
     private String damage;
     
@@ -62,12 +58,12 @@ public class Scam {
         this.adress = adress;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateString() {
+        return dateString;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateString(String date) {
+        this.dateString = date;
     }
 
     public String getDamage() {
@@ -109,4 +105,5 @@ public class Scam {
     public void setReported(boolean reported) {
         this.reported = reported;
     }
+
 }
